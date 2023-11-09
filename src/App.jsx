@@ -1,11 +1,15 @@
+import { Route, Routes } from "react-router-dom";
 import styled from "styled-components";
+import PrivateRoute from "./components/PrivateRouter";
+
+import * as P from "./pages";
 
 function App() {
   return (
     <>
-      <Container>
-        <Title>CONNECT</Title>
-      </Container>
+      <Routes>
+        <Route path="/" element={<PrivateRoute element={<P.Test />} />} />
+      </Routes>
     </>
   );
 }
