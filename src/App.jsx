@@ -3,18 +3,24 @@ import styled from "styled-components";
 function App() {
   return (
     <>
-      <Container>Hello</Container>
+      <Container>
+        <Title>CONNECT</Title>
+      </Container>
     </>
   );
 }
 
 const Container = styled.div`
-  border: 1px solid black;
-  width: 100px;
-  height: 100px;
+  background-color: #1f1e2b;
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
+`;
+
+const Title = styled.h1`
+  color: white;
+  font-size: 3.5rem;
 `;
 
 export default App;
