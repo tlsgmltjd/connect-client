@@ -91,21 +91,27 @@ export default function SignupPage() {
                       return;
                     }
 
-                    navigate("/explain");
+                    navigate("/signup/explain");
                   }}
                 >
                   <S.ErrorMessage>{error && error}</S.ErrorMessage>
                   <S.InputContainer>
-                    <S.InputBox>
+                    <S.BirthInputBox>
                       <S.InputText>생년월일</S.InputText>
-                      <S.Input
+                      <S.BirthInput
+                        placeholder="20070301"
                         value={birth}
                         onChange={(e) => {
                           setError(null);
+                          if (
+                            e.target.value.length > 8 ||
+                            isNaN(e.target.value)
+                          )
+                            return;
                           setBirth(e.target.value);
                         }}
                       />
-                    </S.InputBox>
+                    </S.BirthInputBox>
                   </S.InputContainer>
                   <S.SubmitButton>NEXT</S.SubmitButton>
                 </S.BirthForm>

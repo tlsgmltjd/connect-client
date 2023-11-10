@@ -47,13 +47,9 @@ export const Form = styled.form`
   align-items: center;
 `;
 
-export const BirthForm = styled.form`
-  margin: 20px;
+export const BirthForm = styled(Form)`
   height: 400px;
-  display: flex;
-  flex-direction: column;
   justify-content: space-between;
-  align-items: center;
 `;
 
 export const InputBox = styled.div`
@@ -64,6 +60,10 @@ export const InputBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+`;
+
+export const BirthInputBox = styled(InputBox)`
+  height: 100px;
 `;
 
 export const InputText = styled.span`
@@ -84,6 +84,11 @@ export const Input = styled.input`
   font-size: 20px;
   font-weight: 700;
   padding: 15px;
+`;
+
+export const BirthInput = styled(Input)`
+  height: 80px;
+  font-size: 25px;
 `;
 
 export const InputContainer = styled.div`

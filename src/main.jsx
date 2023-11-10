@@ -67,6 +67,11 @@ a {
 * {
   box-sizing: border-box;
 }
+
+input::placeholder {
+    color: #4a4a4a;
+    font-size: 25px;
+  }
 `;
 
 ReactDOM.createRoot(document.getElementById("root")).render(
