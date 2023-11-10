@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import * as S from "./style";
 import { useState } from "react";
 import axios from "axios";
@@ -8,13 +8,22 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState();
 
+  const navigate = useNavigate();
+
   function login() {
     axios
       .post("http://localhost:8080/api/auth/login", {
         username: username,
         password: password,
       })
-      .then((response) => console.log(response))
+      .then((response) => {
+        localStorage.setItem("Access-Token", response.headers.authorization);
+        localStorage.setItem(
+          "Refresh-Token",
+          response.headers["refresh-token"]
+        );
+        navigate("/");
+      })
       .catch((error) => setError(error.response.data.message));
   }
 
