@@ -25,6 +25,13 @@ export const SubTitle = styled.h1`
   font-size: 1rem;
 `;
 
+export const ErrorMessage = styled.span`
+  color: #ec5353;
+  font-size: 15px;
+  margin-bottom: 10px;
+  height: 15px;
+`;
+
 export const TitleBox = styled.div`
   display: flex;
   flex-direction: column;
@@ -34,6 +41,7 @@ export const TitleBox = styled.div`
 `;
 
 export const Form = styled.form`
+  margin: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -87,4 +95,10 @@ export const SubmitButton = styled.button`
   padding: 18px 70px 18px 70px;
   cursor: pointer;
   margin-top: 50px;
+`;
+
+export const LinkBox = styled.div`
+  margin: 10px;
+  cursor: pointer;
+  color: #5966e9;
 `;

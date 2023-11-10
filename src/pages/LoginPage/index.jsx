@@ -1,6 +1,23 @@
+import { Link } from "react-router-dom";
 import * as S from "./style";
+import { useState } from "react";
+import axios from "axios";
 
 export default function LoginPage() {
+  const [username, setUserName] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState();
+
+  function login() {
+    axios
+      .post("http://localhost:8080/api/auth/login", {
+        username: username,
+        password: password,
+      })
+      .then((response) => console.log(response))
+      .catch((error) => setError(error.response.data.message));
+  }
+
   return (
     <S.Container>
       <S.Wrapper>
@@ -8,17 +25,39 @@ export default function LoginPage() {
           <S.Title>CONNECT</S.Title>
           <S.SubTitle>Social Network Service</S.SubTitle>
         </S.TitleBox>
-        <S.Form>
+        <S.Form
+          onSubmit={(e) => {
+            e.preventDefault();
+            login();
+          }}
+        >
+          <S.ErrorMessage>{error && error}</S.ErrorMessage>
           <S.InputContainer>
             <S.InputBox>
               <S.InputText>이름</S.InputText>
-              <S.Input />
+              <S.Input
+                value={username}
+                onChange={(e) => {
+                  setError(null);
+                  setUserName(e.target.value);
+                }}
+              />
             </S.InputBox>
             <S.InputBox>
               <S.InputText>비밀번호</S.InputText>
-              <S.Input type="password" />
+              <S.Input
+                type="password"
+                value={password}
+                onChange={(e) => {
+                  setError(null);
+                  setPassword(e.target.value);
+                }}
+              />
             </S.InputBox>
           </S.InputContainer>
+          <Link to="/signup">
+            <S.LinkBox>회원가입</S.LinkBox>
+          </Link>
           <S.SubmitButton>CONNECT</S.SubmitButton>
         </S.Form>
       </S.Wrapper>
