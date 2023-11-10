@@ -47,7 +47,7 @@ export const Form = styled.form`
   align-items: center;
 `;
 
-export const BirthForm = styled(Form)`
+export const BigForm = styled(Form)`
   height: 400px;
   justify-content: space-between;
 `;
@@ -62,7 +62,7 @@ export const InputBox = styled.div`
   justify-content: flex-end;
 `;
 
-export const BirthInputBox = styled(InputBox)`
+export const BigInputBox = styled(InputBox)`
   height: 100px;
 `;
 
@@ -86,7 +86,7 @@ export const Input = styled.input`
   padding: 15px;
 `;
 
-export const BirthInput = styled(Input)`
+export const BigInput = styled(Input)`
   height: 80px;
   font-size: 25px;
 `;

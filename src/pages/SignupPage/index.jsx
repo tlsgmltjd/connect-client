@@ -81,7 +81,7 @@ export default function SignupPage() {
             path="/birth"
             element={
               <>
-                <S.BirthForm
+                <S.BigForm
                   onSubmit={(e) => {
                     e.preventDefault();
                     if (password !== checkPassword) {
@@ -96,9 +96,9 @@ export default function SignupPage() {
                 >
                   <S.ErrorMessage>{error && error}</S.ErrorMessage>
                   <S.InputContainer>
-                    <S.BirthInputBox>
+                    <S.BigInputBox>
                       <S.InputText>생년월일</S.InputText>
-                      <S.BirthInput
+                      <S.BigInput
                         placeholder="20070301"
                         value={birth}
                         onChange={(e) => {
@@ -111,10 +111,51 @@ export default function SignupPage() {
                           setBirth(e.target.value);
                         }}
                       />
-                    </S.BirthInputBox>
+                    </S.BigInputBox>
                   </S.InputContainer>
                   <S.SubmitButton>NEXT</S.SubmitButton>
-                </S.BirthForm>
+                </S.BigForm>
+              </>
+            }
+          />
+          <Route
+            path="/explain"
+            element={
+              <>
+                <S.BigForm
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    if (password !== checkPassword) {
+                      setError(
+                        "비밀번호 확인란에 동일한 비밀번호를 입력해주세요."
+                      );
+                      return;
+                    }
+
+                    navigate("/signup/explain");
+                  }}
+                >
+                  <S.ErrorMessage>{error && error}</S.ErrorMessage>
+                  <S.InputContainer>
+                    <S.BigInputBox>
+                      <S.InputText>생년월일</S.InputText>
+                      <S.BigInput
+                        placeholder="20070301"
+                        value={birth}
+                        onChange={(e) => {
+                          setError(null);
+                          if (
+                            e.target.value.length > 8 ||
+                            isNaN(e.target.value)
+                          )
+                            return;
+                          setBirth(e.target.value);
+                        }}
+                      />
+                    </S.BigInputBox>
+                  </S.InputContainer>
+                  <S.SubmitButton>NEXT</S.SubmitButton>
+                </S.BigForm>
               </>
             }
           />
