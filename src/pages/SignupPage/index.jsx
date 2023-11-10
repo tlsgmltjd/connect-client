@@ -35,6 +35,16 @@ export default function SignupPage() {
                       return;
                     }
 
+                    if (username.length < 3) {
+                      setError("이름은 3글자 이상으로 입력해주세요.");
+                      return;
+                    }
+
+                    if (password.length < 6) {
+                      setError("비밀번호는 6글자 이상으로 입력해주세요.");
+                      return;
+                    }
+
                     navigate("/signup/birth");
                   }}
                 >
@@ -85,10 +95,9 @@ export default function SignupPage() {
                 <S.BigForm
                   onSubmit={(e) => {
                     e.preventDefault();
-                    if (password !== checkPassword) {
-                      setError(
-                        "비밀번호 확인란에 동일한 비밀번호를 입력해주세요."
-                      );
+                    // 생년월일 검증식 수정 필요
+                    if (birth.length !== 8) {
+                      setError("생년월일을 입력해주세요.");
                       return;
                     }
 
@@ -126,13 +135,6 @@ export default function SignupPage() {
                 <S.BigForm
                   onSubmit={(e) => {
                     e.preventDefault();
-                    if (password !== checkPassword) {
-                      setError(
-                        "비밀번호 확인란에 동일한 비밀번호를 입력해주세요."
-                      );
-                      return;
-                    }
-
                     navigate("/signup/success");
                   }}
                 >
