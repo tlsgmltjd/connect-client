@@ -3,13 +3,14 @@ import styled from "styled-components";
 export const Container = styled.div`
   background-color: #1f1e2b;
   height: 100vh;
+  padding: 150px;
 `;
 
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
   height: 100%;
 `;
 
@@ -24,11 +25,18 @@ export const SubTitle = styled.h1`
   font-size: 1rem;
 `;
 
+export const TitleBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+`;
+
 export const Form = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
 `;
 
 export const InputBox = styled.div`
@@ -61,7 +69,13 @@ export const Input = styled.input`
   padding: 15px;
 `;
 
-export const ButtonBox = styled.div``;
+export const InputContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+`;
 
 export const SubmitButton = styled.button`
   background-color: #5966e9;
@@ -72,5 +86,5 @@ export const SubmitButton = styled.button`
   border-radius: 30px;
   padding: 18px 70px 18px 70px;
   cursor: pointer;
-  align-items: flex-end;
+  margin-top: 50px;
 `;
