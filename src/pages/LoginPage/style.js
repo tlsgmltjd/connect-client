@@ -94,7 +94,7 @@ export const SubmitButton = styled.button`
   border-radius: 30px;
   padding: 18px 70px 18px 70px;
   cursor: pointer;
-  margin-top: 50px;
+  margin-top: 80px;
 `;
 
 export const LinkBox = styled.div`
