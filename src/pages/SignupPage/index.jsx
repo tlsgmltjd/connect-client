@@ -7,6 +7,7 @@ export default function SignupPage() {
   const [password, setPassword] = useState("");
   const [checkPassword, setCheckPassword] = useState("");
   const [birth, setBirth] = useState("");
+  const [explain, setExplain] = useState("");
 
   const [error, setError] = useState(null);
 
@@ -132,29 +133,23 @@ export default function SignupPage() {
                       return;
                     }
 
-                    navigate("/signup/explain");
+                    navigate("/signup/success");
                   }}
                 >
                   <S.ErrorMessage>{error && error}</S.ErrorMessage>
                   <S.InputContainer>
                     <S.BigInputBox>
-                      <S.InputText>생년월일</S.InputText>
-                      <S.BigInput
-                        placeholder="20070301"
-                        value={birth}
+                      <S.InputText>자기소개</S.InputText>
+                      <S.Input
+                        value={explain}
                         onChange={(e) => {
                           setError(null);
-                          if (
-                            e.target.value.length > 8 ||
-                            isNaN(e.target.value)
-                          )
-                            return;
-                          setBirth(e.target.value);
+                          setExplain(e.target.value);
                         }}
                       />
                     </S.BigInputBox>
                   </S.InputContainer>
-                  <S.SubmitButton>NEXT</S.SubmitButton>
+                  <S.SubmitButton>FINISH</S.SubmitButton>
                 </S.BigForm>
               </>
             }
