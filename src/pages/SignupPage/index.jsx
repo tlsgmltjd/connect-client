@@ -1,8 +1,9 @@
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Link, Route, Routes, useNavigate } from "react-router-dom";
 import * as S from "./style";
 import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import RocketImg from "../../assets/RocketImg.png";
 
 export default function SignupPage() {
   const [username, setUserName] = useState("");
@@ -193,6 +194,17 @@ export default function SignupPage() {
                   </S.InputContainer>
                   <S.SubmitButton>FINISH</S.SubmitButton>
                 </S.BigForm>
+              </>
+            }
+          />
+          <Route
+            path="/success"
+            element={
+              <>
+                <S.ImgBox src={RocketImg} />
+                <Link to="/login">
+                  <S.SubmitButton>CONNECT</S.SubmitButton>
+                </Link>
               </>
             }
           />

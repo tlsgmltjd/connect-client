@@ -110,3 +110,9 @@ export const SubmitButton = styled.button`
   cursor: pointer;
   margin-top: 80px;
 `;
+
+export const ImgBox = styled.img`
+  width: 300px;
+  height: 200px;
+  object-fit: contain;
+`;
