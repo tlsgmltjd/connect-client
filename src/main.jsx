@@ -2,6 +2,9 @@ import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import { createGlobalStyle } from "styled-components";
 import { BrowserRouter } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+
+import "react-toastify/dist/ReactToastify.css";
 
 const GlobalStyled = createGlobalStyle`
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css");
@@ -77,6 +80,7 @@ input::placeholder {
 ReactDOM.createRoot(document.getElementById("root")).render(
   <>
     <BrowserRouter>
+      <ToastContainer />
       <GlobalStyled />
       <App />
     </BrowserRouter>

@@ -1,17 +1,57 @@
 import { Route, Routes, useNavigate } from "react-router-dom";
 import * as S from "./style";
 import { useState } from "react";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 export default function SignupPage() {
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [checkPassword, setCheckPassword] = useState("");
-  const [birth, setBirth] = useState("");
+  const [birth, setBirth] = useState();
   const [explain, setExplain] = useState("");
 
   const [error, setError] = useState(null);
 
   const navigate = useNavigate();
+
+  function signup() {
+    axios
+      .post("http://localhost:8080/api/auth/signup", {
+        username: username,
+        password: password,
+        explain: explain,
+        birth: birth,
+      })
+      .then(() => {
+        toast.success("회원가입이 완료되었습니다.", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+
+        navigate("/signup/success");
+      })
+      .catch((error) => {
+        toast.error("회원가입에 실패했습니다.", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+
+        navigate("/login");
+      });
+  }
 
   return (
     <S.Container>
@@ -135,7 +175,7 @@ export default function SignupPage() {
                 <S.BigForm
                   onSubmit={(e) => {
                     e.preventDefault();
-                    navigate("/signup/success");
+                    signup();
                   }}
                 >
                   <S.ErrorMessage>{error && error}</S.ErrorMessage>
