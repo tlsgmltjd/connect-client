@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import * as S from "./style";
 import { useState } from "react";
 
@@ -6,7 +6,11 @@ export default function SignupPage() {
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [checkPassword, setCheckPassword] = useState("");
+  const [birth, setBirth] = useState("");
+
   const [error, setError] = useState(null);
+
+  const navigate = useNavigate();
 
   return (
     <S.Container>
@@ -29,6 +33,8 @@ export default function SignupPage() {
                       );
                       return;
                     }
+
+                    navigate("/signup/birth");
                   }}
                 >
                   <S.ErrorMessage>{error && error}</S.ErrorMessage>
@@ -68,6 +74,41 @@ export default function SignupPage() {
                   </S.InputContainer>
                   <S.SubmitButton>NEXT</S.SubmitButton>
                 </S.Form>
+              </>
+            }
+          />
+          <Route
+            path="/birth"
+            element={
+              <>
+                <S.BirthForm
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    if (password !== checkPassword) {
+                      setError(
+                        "비밀번호 확인란에 동일한 비밀번호를 입력해주세요."
+                      );
+                      return;
+                    }
+
+                    navigate("/explain");
+                  }}
+                >
+                  <S.ErrorMessage>{error && error}</S.ErrorMessage>
+                  <S.InputContainer>
+                    <S.InputBox>
+                      <S.InputText>생년월일</S.InputText>
+                      <S.Input
+                        value={birth}
+                        onChange={(e) => {
+                          setError(null);
+                          setBirth(e.target.value);
+                        }}
+                      />
+                    </S.InputBox>
+                  </S.InputContainer>
+                  <S.SubmitButton>NEXT</S.SubmitButton>
+                </S.BirthForm>
               </>
             }
           />

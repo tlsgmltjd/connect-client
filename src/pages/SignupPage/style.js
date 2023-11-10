@@ -47,6 +47,15 @@ export const Form = styled.form`
   align-items: center;
 `;
 
+export const BirthForm = styled.form`
+  margin: 20px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+`;
+
 export const InputBox = styled.div`
   position: relative;
   border-radius: 10px;
