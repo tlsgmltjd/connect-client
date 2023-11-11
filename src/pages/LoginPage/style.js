@@ -25,19 +25,19 @@ export const SubTitle = styled.h1`
   font-size: 1rem;
 `;
 
-export const ErrorMessage = styled.span`
-  color: #ec5353;
-  font-size: 15px;
-  margin-bottom: 10px;
-  height: 15px;
-`;
-
 export const TitleBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 15px;
+`;
+
+export const ErrorMessage = styled.span`
+  color: #ec5353;
+  font-size: 15px;
+  margin-bottom: 10px;
+  height: 15px;
 `;
 
 export const Form = styled.form`
