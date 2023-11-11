@@ -94,6 +94,7 @@ export default function SignupPage() {
                     <S.InputBox>
                       <S.InputText>이름</S.InputText>
                       <S.Input
+                        required
                         value={username}
                         onChange={(e) => {
                           setError(null);
@@ -104,6 +105,7 @@ export default function SignupPage() {
                     <S.InputBox>
                       <S.InputText>비밀번호</S.InputText>
                       <S.Input
+                        required
                         type="password"
                         value={password}
                         onChange={(e) => {
@@ -115,6 +117,7 @@ export default function SignupPage() {
                     <S.InputBox>
                       <S.InputText>비밀번호 확인</S.InputText>
                       <S.Input
+                        required
                         type="password"
                         value={checkPassword}
                         onChange={(e) => {
@@ -150,6 +153,7 @@ export default function SignupPage() {
                     <S.BigInputBox>
                       <S.InputText>생년월일</S.InputText>
                       <S.BigInput
+                        required
                         placeholder="20070301"
                         value={birth}
                         onChange={(e) => {
@@ -182,6 +186,7 @@ export default function SignupPage() {
                   <S.ErrorMessage>{error && error}</S.ErrorMessage>
                   <S.InputContainer>
                     <S.BigInputBox>
+                      required
                       <S.InputText>자기소개</S.InputText>
                       <S.Input
                         value={explain}

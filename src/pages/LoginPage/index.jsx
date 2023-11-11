@@ -45,6 +45,7 @@ export default function LoginPage() {
             <S.InputBox>
               <S.InputText>이름</S.InputText>
               <S.Input
+                required
                 value={username}
                 onChange={(e) => {
                   setError(null);
@@ -55,6 +56,7 @@ export default function LoginPage() {
             <S.InputBox>
               <S.InputText>비밀번호</S.InputText>
               <S.Input
+                required
                 type="password"
                 value={password}
                 onChange={(e) => {
