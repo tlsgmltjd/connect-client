@@ -15,3 +15,7 @@ export const Title = styled.h1`
   text-shadow: 0 0 0px #fff, 0 0 0px #fff, 0 0 5px #fff;
   margin-left: 30px;
 `;
+
+export const LinkButton = styled.div`
+  cursor: pointer;
+`;
