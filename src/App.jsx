@@ -10,7 +10,7 @@ function App() {
       <Routes>
         <Route path="/signup/*" element={<P.SignupPage />} />
         <Route path="/login" element={<P.LoginPage />} />
-        <Route path="/" element={<PrivateRoute element={<P.Test />} />} />
+        <Route path="/" element={<PrivateRoute element={<P.MainPage />} />} />
       </Routes>
     </>
   );
