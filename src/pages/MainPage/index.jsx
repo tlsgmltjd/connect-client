@@ -3,7 +3,6 @@ import { CommentIcon } from "../../assets/CommentIcon";
 import { HeartIcon } from "../../assets/HeartIcon";
 import { InfoIcon } from "../../assets/InfoIcon";
 import { InfoUserIcon } from "../../assets/InfoUserIcon";
-import Header from "../../components/Header";
 import * as S from "./style";
 import axios from "axios";
 

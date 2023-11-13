@@ -75,6 +75,11 @@ input::placeholder {
     color: #4a4a4a;
     font-size: 25px;
   }
+
+  textarea::placeholder {
+    color: #4a4a4a;
+    font-size: 20px;
+  }
 `;
 
 ReactDOM.createRoot(document.getElementById("root")).render(

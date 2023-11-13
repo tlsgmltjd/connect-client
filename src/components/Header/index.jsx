@@ -29,7 +29,7 @@ export default function Header() {
           <ProfileIcon />
         </S.LinkButton>
       </Link>
-      <Link to="/board">
+      <Link to="/boards">
         <S.LinkButton>
           <BoardIcon />
         </S.LinkButton>
