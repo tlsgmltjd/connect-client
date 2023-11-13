@@ -2,11 +2,15 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   width: 100%;
-  height: 100px;
+  height: 120px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   gap: 3.5rem;
+
+  @media screen and (max-width: 890px) {
+    gap: 2rem;
+  }
 `;
 
 export const Title = styled.h1`
@@ -14,6 +18,10 @@ export const Title = styled.h1`
   font-size: 3rem;
   text-shadow: 0 0 0px #fff, 0 0 0px #fff, 0 0 5px #fff;
   margin-left: 30px;
+
+  @media screen and (max-width: 890px) {
+    font-size: 2.3rem;
+  }
 `;
 
 export const LinkButton = styled.div`
