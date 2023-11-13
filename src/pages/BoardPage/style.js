@@ -19,6 +19,7 @@ export const BoardBox = styled.article`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  position: relative;
 `;
 
 export const BoardForm = styled.form`
@@ -83,4 +84,18 @@ export const SubmitButton = styled.button`
     color: white;
     transition: 0.3s ease;
   }
+`;
+
+export const CountTitle = styled.div`
+  color: ${({ count }) => (count >= 500 ? "#EC5353" : "#626274")};
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+`;
+
+export const ErrorMessage = styled.span`
+  color: #ec5353;
+  font-size: 15px;
+  margin-top: 10px;
+  height: 15px;
 `;
