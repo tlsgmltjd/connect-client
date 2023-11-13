@@ -5,3 +5,5 @@ export const Container = styled.div`
   height: 100px;
   border: 1px solid white;
 `;
+
+export const Title = styled.h1``;
