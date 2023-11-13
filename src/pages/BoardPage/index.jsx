@@ -1,10 +1,57 @@
 import { useState } from "react";
 import * as S from "./style";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function BoardPage() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [error, setError] = useState(null);
+
+  const navigate = useNavigate();
+
+  function board() {
+    axios
+      .post("http://localhost:8080/board", {
+        body: {
+          title,
+          content,
+        },
+        headers: {
+          Authorization: localStorage.getItem("Access-Token"),
+        },
+        withCredentials: true,
+      })
+      .then((response) => {
+        toast.success(response.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+
+        navigate("/");
+      })
+      .catch((error) =>
+        toast.error(error.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        })
+      );
+    setTitle("");
+    setContent("");
+  }
 
   return (
     <S.BoardContainer>
@@ -14,10 +61,14 @@ export default function BoardPage() {
           e.preventDefault();
           if (title.length < 3 || content.length < 3) {
             setError("3글자 이상으로 입력해주세요.");
+            return;
           }
           if (content.length > 500) {
             setError("너무 길어요.");
+            return;
           }
+
+          board();
         }}
       >
         <S.BoardBox>
