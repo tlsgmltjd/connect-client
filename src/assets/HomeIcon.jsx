@@ -1,8 +1,8 @@
 export const HomeIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="61"
-    height="61"
+    width="50"
+    height="50"
     viewBox="0 0 61 61"
     fill="none"
   >

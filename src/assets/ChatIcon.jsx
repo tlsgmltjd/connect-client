@@ -1,8 +1,8 @@
 export const ChatIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="63"
-    height="63"
+    width="50"
+    height="50"
     viewBox="0 0 63 63"
     fill="none"
   >
