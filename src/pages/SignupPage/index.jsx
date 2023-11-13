@@ -186,7 +186,6 @@ export default function SignupPage() {
                   <S.ErrorMessage>{error && error}</S.ErrorMessage>
                   <S.InputContainer>
                     <S.BigInputBox>
-                      required
                       <S.InputText>자기소개</S.InputText>
                       <S.Input
                         value={explain}
