@@ -7,6 +7,7 @@ export const Container = styled.div`
 
 export const BoardContainer = styled.div`
   padding-top: 100px;
+  padding-bottom: 100px;
   width: 100%;
   display: flex;
   flex-direction: column;

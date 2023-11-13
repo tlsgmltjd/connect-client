@@ -23,9 +23,8 @@ export default function MainPage() {
 
   return (
     <S.Container>
-      <Header />
       <S.BoardContainer>
-        {boards ??
+        {boards &&
           boards.map((board) => (
             <S.BoardBox key={board.boardId}>
               <S.BoardHeader>
