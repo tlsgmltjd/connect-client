@@ -1,3 +1,7 @@
+import { CommentIcon } from "../../assets/CommentIcon";
+import { HeartIcon } from "../../assets/HeartIcon";
+import { InfoIcon } from "../../assets/InfoIcon";
+import { InfoUserIcon } from "../../assets/InfoUserIcon";
 import Header from "../../components/Header";
 import * as S from "./style";
 
@@ -10,6 +14,7 @@ export default function MainPage() {
           <S.BoardHeader>
             <S.BoardTitle>오늘 타방한 썰 푼다.</S.BoardTitle>
             <S.BoardUserBox>
+              <InfoUserIcon />
               <S.BoardUserName>이진헌</S.BoardUserName>
             </S.BoardUserBox>
           </S.BoardHeader>
@@ -23,9 +28,16 @@ export default function MainPage() {
           </S.BoardContent>
           <S.BoardFooter>
             <S.BoardInfoBox>
-              <S.BoardLike></S.BoardLike>
-              <S.BoardComment></S.BoardComment>
+              <S.BoardInfo>
+                <HeartIcon />
+                20
+              </S.BoardInfo>
+              <S.BoardInfo>
+                <CommentIcon />
+                20
+              </S.BoardInfo>
             </S.BoardInfoBox>
+            <InfoIcon />
           </S.BoardFooter>
         </S.BoardBox>
       </S.BoardContainer>

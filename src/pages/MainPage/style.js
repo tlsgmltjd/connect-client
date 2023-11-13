@@ -19,14 +19,52 @@ export const BoardBox = styled.article`
   height: 500px;
   border-radius: 30px;
   background: #17161f;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 
-export const BoardHeader = styled.div``;
-export const BoardTitle = styled.h1``;
-export const BoardContent = styled.p``;
-export const BoardUserBox = styled.div``;
-export const BoardUserName = styled.div``;
-export const BoardFooter = styled.div``;
-export const BoardInfoBox = styled.div``;
-export const BoardLike = styled.div``;
-export const BoardComment = styled.div``;
+export const BoardHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+export const BoardTitle = styled.h1`
+  color: white;
+  font-size: 2rem;
+  text-shadow: 0 0 0px #fff, 0 0 0px #fff, 0 0 4px #fff;
+`;
+export const BoardContent = styled.p`
+  color: white;
+  font-size: 20px;
+  line-height: 40px;
+`;
+export const BoardUserBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+`;
+export const BoardUserName = styled.div`
+  color: white;
+  font-size: 1.2rem;
+`;
+export const BoardFooter = styled.div`
+  color: white;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+export const BoardInfoBox = styled.div`
+  display: flex;
+  gap: 20px;
+`;
+export const BoardInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+`;
