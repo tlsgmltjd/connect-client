@@ -18,12 +18,15 @@ export default function SignupPage() {
 
   function signup() {
     axios
-      .post("http://localhost:8080/api/auth/signup", {
-        username: username,
-        password: password,
-        explain: explain,
-        birth: birth,
-      })
+      .post(
+        "https://port-0-connect-server-f02w2almh8gdgs.sel5.cloudtype.app/api/auth/signup",
+        {
+          username: username,
+          password: password,
+          explain: explain,
+          birth: birth,
+        }
+      )
       .then(() => {
         toast.success("회원가입이 완료되었습니다.", {
           position: "top-right",

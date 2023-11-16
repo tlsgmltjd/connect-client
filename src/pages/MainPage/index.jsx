@@ -9,15 +9,18 @@ import axios from "axios";
 export default function MainPage() {
   const [boards, setBoards] = useState([]);
 
-  useEffect(() => {
-    axios
+  const getBoards = async () =>
+    await axios
       .get("http://localhost:8080/board", {
         headers: {
-          Authorization: localStorage.getItem("Access-Token"),
+          Authorization: `Bearer ${localStorage.getItem("Access-Token")}`,
         },
-        withCredentials: true,
       })
-      .then((response) => setBoards(response.data));
+      .then((data) => setBoards(data.data))
+      .catch((error) => console.error("Error fetching data:", error));
+
+  useEffect(() => {
+    getBoards();
   }, []);
 
   return (

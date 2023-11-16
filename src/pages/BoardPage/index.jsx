@@ -13,20 +13,24 @@ export default function BoardPage() {
 
   function board() {
     axios
-      .post("http://localhost:8080/board", {
-        body: {
+      .post(
+        "http://localhost:8080/board",
+        {
           title,
           content,
         },
-        headers: {
-          Authorization: localStorage.getItem("Access-Token"),
-        },
-        withCredentials: true,
-      })
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("Access-Token")}`,
+          },
+          withCredentials: true,
+        }
+      )
       .then((response) => {
-        toast.success(response.message, {
+        console.log(response);
+        toast.success(response.data.msg, {
           position: "top-right",
-          autoClose: 5000,
+          autoClose: 1000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -40,7 +44,7 @@ export default function BoardPage() {
       .catch((error) =>
         toast.error(error.message, {
           position: "top-right",
-          autoClose: 5000,
+          autoClose: 1000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -74,7 +78,9 @@ export default function BoardPage() {
         <S.BoardBox>
           <S.TitleInput
             value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            onChange={(e) => {
+              if (!(e.target.value.length > 20)) setTitle(e.target.value);
+            }}
             placeholder="제목을 입력하세요"
             required
           />
