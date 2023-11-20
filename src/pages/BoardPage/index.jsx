@@ -85,7 +85,7 @@ export default function BoardPage() {
               setError("3글자 이상으로 입력해주세요.");
               return;
             }
-            if (content.length > 500) {
+            if (content.length > 200) {
               setError("너무 길어요.");
               return;
             }
@@ -110,7 +110,7 @@ export default function BoardPage() {
               required
             />
             <S.CountTitle count={content.length}>
-              {content.length + " / 500"}
+              {content.length + " / 200"}
             </S.CountTitle>
           </S.BoardBox>
           <S.SubmitButton>POST</S.SubmitButton>
