@@ -20,6 +20,10 @@ function App() {
             path="/boards"
             element={<PrivateRoute element={<P.BoardPage />} />}
           />
+          <Route
+            path="/search"
+            element={<PrivateRoute element={<P.SearchPage />} />}
+          />
         </Routes>
       </>
     </>
