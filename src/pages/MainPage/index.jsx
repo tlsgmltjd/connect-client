@@ -6,9 +6,13 @@ import { InfoUserIcon } from "../../assets/InfoUserIcon";
 import * as S from "./style";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { refresh } from "../../api/refresh";
+import Header from "../../components/Header";
+import { useNavigate } from "react-router-dom";
 
 export default function MainPage() {
   const [boards, setBoards] = useState([]);
+  const navigate = useNavigate();
 
   const getBoards = async () =>
     await axios
@@ -20,7 +24,9 @@ export default function MainPage() {
       .then((data) => {
         setBoards(data.data);
       })
-      .catch((error) => console.error("Error fetching data:", error));
+      .catch((error) => {
+        refresh(navigate, getBoards);
+      });
 
   const like = async (board) =>
     await axios
@@ -56,7 +62,7 @@ export default function MainPage() {
         );
       })
       .catch((error) => {
-        console.log(error);
+        refresh(navigate, like);
         return;
       });
 
@@ -65,39 +71,42 @@ export default function MainPage() {
   }, []);
 
   return (
-    <S.Container>
-      <S.BoardContainer>
-        {boards &&
-          boards.map((board) => (
-            <S.BoardBox key={board.boardId}>
-              <S.BoardHeader>
-                <S.BoardTitle>{board.title}</S.BoardTitle>
-                <S.BoardUserBox>
-                  <InfoUserIcon />
-                  <S.BoardUserName>{board.author.username}</S.BoardUserName>
-                </S.BoardUserBox>
-              </S.BoardHeader>
-              <S.BoardContent>{board.content}</S.BoardContent>
-              <S.BoardFooter>
-                <S.BoardInfoBox>
-                  <S.BoardInfo
-                    onClick={() => {
-                      like(board);
-                    }}
-                  >
-                    <HeartIcon />
-                    {board.likeCount}
-                  </S.BoardInfo>
-                  <S.BoardInfo>
-                    <CommentIcon />
-                    {board.commentCount}
-                  </S.BoardInfo>
-                </S.BoardInfoBox>
-                <InfoIcon />
-              </S.BoardFooter>
-            </S.BoardBox>
-          ))}
-      </S.BoardContainer>
-    </S.Container>
+    <>
+      <Header />
+      <S.Container>
+        <S.BoardContainer>
+          {boards &&
+            boards.map((board) => (
+              <S.BoardBox key={board.boardId}>
+                <S.BoardHeader>
+                  <S.BoardTitle>{board.title}</S.BoardTitle>
+                  <S.BoardUserBox>
+                    <InfoUserIcon />
+                    <S.BoardUserName>{board.author.username}</S.BoardUserName>
+                  </S.BoardUserBox>
+                </S.BoardHeader>
+                <S.BoardContent>{board.content}</S.BoardContent>
+                <S.BoardFooter>
+                  <S.BoardInfoBox>
+                    <S.BoardInfo
+                      onClick={() => {
+                        like(board);
+                      }}
+                    >
+                      <HeartIcon />
+                      {board.likeCount}
+                    </S.BoardInfo>
+                    <S.BoardInfo>
+                      <CommentIcon />
+                      {board.commentCount}
+                    </S.BoardInfo>
+                  </S.BoardInfoBox>
+                  <InfoIcon />
+                </S.BoardFooter>
+              </S.BoardBox>
+            ))}
+        </S.BoardContainer>
+      </S.Container>
+    </>
   );
 }
