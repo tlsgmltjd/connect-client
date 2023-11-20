@@ -5,6 +5,7 @@ import { InfoIcon } from "../../assets/InfoIcon";
 import { InfoUserIcon } from "../../assets/InfoUserIcon";
 import * as S from "./style";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 export default function MainPage() {
   const [boards, setBoards] = useState([]);
@@ -16,8 +17,48 @@ export default function MainPage() {
           Authorization: `Bearer ${localStorage.getItem("Access-Token")}`,
         },
       })
-      .then((data) => setBoards(data.data))
+      .then((data) => {
+        setBoards(data.data);
+      })
       .catch((error) => console.error("Error fetching data:", error));
+
+  const like = async (board) =>
+    await axios
+      .post(
+        "http://localhost:8080/board/like",
+        { boardId: board.boardId },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("Access-Token")}`,
+          },
+        }
+      )
+      .then((data) => {
+        toast.success(data.data.msg, {
+          position: "top-right",
+          autoClose: 500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+
+        setBoards((prevData) =>
+          prevData.map((preBoard) =>
+            preBoard.boardId === board.boardId
+              ? data.data.msg == "좋아요 등록이 완료되었습니다."
+                ? { ...preBoard, likeCount: preBoard.likeCount + 1 }
+                : { ...preBoard, likeCount: preBoard.likeCount - 1 }
+              : preBoard
+          )
+        );
+      })
+      .catch((error) => {
+        console.log(error);
+        return;
+      });
 
   useEffect(() => {
     getBoards();
@@ -39,7 +80,11 @@ export default function MainPage() {
               <S.BoardContent>{board.content}</S.BoardContent>
               <S.BoardFooter>
                 <S.BoardInfoBox>
-                  <S.BoardInfo>
+                  <S.BoardInfo
+                    onClick={() => {
+                      like(board);
+                    }}
+                  >
                     <HeartIcon />
                     {board.likeCount}
                   </S.BoardInfo>

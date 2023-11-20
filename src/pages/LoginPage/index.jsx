@@ -12,22 +12,19 @@ export default function LoginPage() {
 
   function login() {
     axios
-      .post(
-        "https://port-0-connect-server-f02w2almh8gdgs.sel5.cloudtype.app/api/auth/login",
-        {
-          username: username,
-          password: password,
-        }
-      )
+      .post("http://localhost:8080/api/auth/login", {
+        username: username,
+        password: password,
+      })
       .then((response) => {
         localStorage.clear();
         localStorage.setItem(
           "Access-Token",
-          response.headers.authorization.replace("Bearer ", "")
+          response.headers.authorization.replace("Bearer", "")
         );
         localStorage.setItem(
           "Refresh-Token",
-          response.headers["refresh-token"].replace("Bearer ", "")
+          response.headers["refresh-token"].replace("Bearer", "")
         );
         navigate("/");
       })
