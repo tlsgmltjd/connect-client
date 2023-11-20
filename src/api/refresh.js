@@ -1,4 +1,5 @@
 import axios from "axios";
+import { toast } from "react-toastify";
 
 export const refresh = async (navigate, callBack) => {
   await axios
@@ -21,5 +22,15 @@ export const refresh = async (navigate, callBack) => {
     .catch((error) => {
       localStorage.clear();
       navigate("/login");
+      toast.error("다시 로그인 해주세요.", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
     });
 };
