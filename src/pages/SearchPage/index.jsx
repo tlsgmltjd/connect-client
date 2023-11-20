@@ -6,25 +6,42 @@ import { ProfileIcon } from "../../assets/ProfileIcon";
 import { InfoButton } from "../../assets/InfoButton";
 import { useState } from "react";
 import axios from "axios";
-import _ from "lodash";
+import { refresh } from "../../api/refresh";
+import { useNavigate } from "react-router-dom";
 
 export default function SearchPage() {
   const [search, setSearch] = useState("");
   const [res, setRes] = useState([]);
-  const debouncedSearch = _.debounce((value) => {
-    axios
-      .get(`http://localhost:8080/user?search=${value}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("Access-Token")}`,
-        },
-      })
-      .then((response) => setRes(response.data));
-  }, 500); // 500ms 디바운스 설정
+  let debounceTimer;
+  const navigate = useNavigate();
 
   const handleSearchChange = (e) => {
     const value = e.target.value;
     setSearch(value);
-    debouncedSearch(value);
+
+    // 기존 타이머가 있다면 클리어
+    if (debounceTimer) {
+      clearTimeout(debounceTimer);
+    }
+
+    // 500ms 후에 검색 요청
+    debounceTimer = setTimeout(() => {
+      axios
+        .get(
+          `https://port-0-connect-server-f02w2almh8gdgs.sel5.cloudtype.app/user?search=${value}`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("Access-Token")}`,
+            },
+          }
+        )
+        .then((response) => setRes(response.data))
+        .catch((error) => {
+          if (error.response.status == 403) {
+            refresh(navigate, null);
+          }
+        });
+    }, 500);
   };
 
   return (

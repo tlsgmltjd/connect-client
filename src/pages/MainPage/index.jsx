@@ -16,11 +16,14 @@ export default function MainPage() {
 
   const getBoards = async () =>
     await axios
-      .get("http://localhost:8080/board", {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("Access-Token")}`,
-        },
-      })
+      .get(
+        "https://port-0-connect-server-f02w2almh8gdgs.sel5.cloudtype.app/board",
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("Access-Token")}`,
+          },
+        }
+      )
       .then((data) => {
         setBoards(data.data);
       })
@@ -31,7 +34,7 @@ export default function MainPage() {
   const like = async (board) =>
     await axios
       .post(
-        "http://localhost:8080/board/like",
+        "https://port-0-connect-server-f02w2almh8gdgs.sel5.cloudtype.app/board/like",
         { boardId: board.boardId },
         {
           headers: {

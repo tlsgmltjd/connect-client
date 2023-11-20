@@ -16,7 +16,7 @@ export default function BoardPage() {
   function board() {
     axios
       .post(
-        "http://localhost:8080/board",
+        "https://port-0-connect-server-f02w2almh8gdgs.sel5.cloudtype.app/board",
         {
           title,
           content,
