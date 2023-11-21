@@ -7,6 +7,11 @@ export const Container = styled.div`
   justify-content: flex-start;
   align-items: center;
   gap: 3.5rem;
+  position: fixed;
+  padding: 30px;
+  top: 0;
+  z-index: 999;
+  background-color: #1f1e2b;
 
   @media screen and (max-width: 890px) {
     gap: 2rem;
