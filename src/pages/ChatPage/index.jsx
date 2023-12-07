@@ -63,9 +63,39 @@ function ChatInfoPage() {
 
   const client = useRef({});
 
+  const connectContainerRef = useRef(null);
+  const [fristScroll, setFirstScroll] = useState(true);
+
+  const scrollInit = () => {
+    if (!connectContainerRef.current) return;
+
+    connectContainerRef.current.scrollTop =
+      connectContainerRef.current.scrollHeight;
+  };
+
   const disconnect = () => {
     client.current.deactivate();
   };
+
+  useEffect(() => {
+    scrollInit();
+    if (fristScroll) {
+      scrollInit();
+      setFirstScroll(false);
+    } else {
+      if (!connectContainerRef.current) return;
+
+      const isScrolledToBottom =
+        connectContainerRef.current.scrollHeight -
+          connectContainerRef.current.clientHeight <=
+        connectContainerRef.current.scrollTop + 500; // 작은 오차를 허용
+
+      if (!isScrolledToBottom) {
+        return;
+      }
+      scrollInit();
+    }
+  }, [chatList]);
 
   useEffect(() => {
     connect();
@@ -100,6 +130,7 @@ function ChatInfoPage() {
 
       client.current.subscribe("/room/" + id, function (chatMessage) {
         const message = JSON.parse(chatMessage.body);
+        console.log(message);
         setChatList((prev) => [
           ...prev,
           {
@@ -126,22 +157,27 @@ function ChatInfoPage() {
 
   return (
     <>
-      <h1>채팅창</h1>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          const msg = e.target.msg.value;
-          sendChat(msg);
-        }}
-      >
-        <input name="msg" id="msg" />
-        <button type="submit">채팅 보내기</button>
-      </form>
-      <ul>
-        {chatList.map((chat) => (
-          <li key={chat.id}>{chat.sender + " - " + chat.message}</li>
-        ))}
-      </ul>
+      <S.ChatInfoContainer>
+        <S.ChatBoxContainer ref={connectContainerRef}>
+          {chatList.map((chat) => (
+            <S.ChatBox key={chat.id} isMe={chat.isMe}>
+              {chat.message}
+              {chat.isMe == null && <S.ChatName>{chat.sender}</S.ChatName>}
+            </S.ChatBox>
+          ))}
+        </S.ChatBoxContainer>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            const msg = e.target.msg.value;
+            sendChat(msg);
+            e.target.msg.value = "";
+          }}
+        >
+          <input name="msg" id="msg" />
+          <button type="submit">채팅 보내기</button>
+        </form>
+      </S.ChatInfoContainer>
     </>
   );
 }
