@@ -14,10 +14,26 @@ export const SideBar = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 70%;
-  width: 200px;
+  height: 600px;
+  width: 250px;
+  overflow-y: scroll;
 `;
 
 export const SideBarListBox = styled.ul``;
 
-export const SideBarListItem = styled.li``;
+export const SideBarListItem = styled.li`
+  color: white;
+  padding: 15px;
+`;
+
+export const UserInfoBox = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  cursor: pointer;
+`;
+
+export const UserName = styled.div`
+  font-size: 18px;
+  font-weight: 700;
+`;

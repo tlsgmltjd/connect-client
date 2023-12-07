@@ -25,7 +25,7 @@ function App() {
             element={<PrivateRoute element={<P.SearchPage />} />}
           />
           <Route
-            path="/chat"
+            path="/chat/*"
             element={<PrivateRoute element={<P.ChatPage />} />}
           />
         </Routes>
