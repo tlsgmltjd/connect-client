@@ -169,7 +169,7 @@ function ChatInfoPage({ isMobile, roomList }) {
         id,
       {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("Access-Token")}`,
+          Authorization: `Bearer  ${localStorage.getItem("Access-Token")}`,
         },
       }
     )
@@ -185,7 +185,7 @@ function ChatInfoPage({ isMobile, roomList }) {
       });
 
     fetch(
-      "https://port-0-connect-server-f02w2almh8gdgs.sel5.cloudtype.app/user/me",
+      "https://port-0-connect-server-f02w2almh8gdgs.sel5.cloudtype.app/user/myself",
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("Access-Token")}`,
@@ -194,6 +194,7 @@ function ChatInfoPage({ isMobile, roomList }) {
     )
       .then((response) => response.json())
       .then((data) => {
+        console.log(data.id);
         setCurrentUserId(data.id);
       })
       .catch((error) => {
