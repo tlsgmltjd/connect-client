@@ -6,6 +6,7 @@ import { Link, Route, Routes, useNavigate, useParams } from "react-router-dom";
 import { Stomp } from "@stomp/stompjs";
 import SockJS from "sockjs-client";
 import { refresh } from "../../api/refresh";
+import { ChatIcon } from "../../assets/ChatIcon";
 
 export default function ChatPage() {
   const [roomList, setRoomList] = useState([]);
@@ -182,7 +183,7 @@ function ChatInfoPage() {
             </S.ChatBox>
           ))}
         </S.ChatBoxContainer>
-        <form
+        <S.ChatForm
           onSubmit={(e) => {
             e.preventDefault();
             const msg = e.target.msg.value;
@@ -190,9 +191,11 @@ function ChatInfoPage() {
             e.target.msg.value = "";
           }}
         >
-          <input name="msg" id="msg" />
-          <button type="submit">채팅 보내기</button>
-        </form>
+          <S.ChatInput name="msg" id="msg" required />
+          <S.ChatButton>
+            <ChatIcon />
+          </S.ChatButton>
+        </S.ChatForm>
       </S.ChatInfoContainer>
     </>
   );

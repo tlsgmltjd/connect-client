@@ -11,7 +11,7 @@ export const ChatContainer = styled.div`
 
 export const SideBar = styled.div`
   position: relative;
-  left: 0;
+  left: 20px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -45,6 +45,7 @@ export const ChatInfoContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 50px;
 `;
 
 export const ChatBoxContainer = styled.div`
@@ -79,4 +80,36 @@ export const ChatBox = styled.p`
 export const ChatName = styled.p`
   font-size: 12px;
   margin: 5px;
+`;
+
+export const ChatForm = styled.form`
+  display: flex;
+  justify-content: center;
+  width: 70%;
+  position: relative;
+`;
+
+export const ChatButton = styled.button`
+  border: none;
+  background-color: rgba(0, 0, 0, 0);
+  cursor: pointer;
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  svg {
+    width: 40px;
+    height: 40px;
+  }
+`;
+
+export const ChatInput = styled.input`
+  background-color: rgba(0, 0, 0, 0);
+  border-radius: 50px;
+  border: 2px solid #fff;
+  width: 100%;
+  height: 70px;
+  padding: 0 0 0 20px;
+  color: white;
+  font-size: 20px;
+  outline: none;
 `;
