@@ -50,15 +50,18 @@ export const ChatInfoContainer = styled.div`
 
 export const ChatBoxContainer = styled.div`
   width: 50%;
-  height: 50vh;
+  height: 500px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   overflow: scroll;
   gap: 15px;
 
   &::-webkit-scrollbar {
     width: 0;
+  }
+
+  @media (max-width: 600px) {
+    width: 90%;
   }
 `;
 
@@ -79,6 +82,12 @@ export const ChatBox = styled.p`
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  &:hover {
+    scale: 1.05;
+    transition: all 0.3s ease;
+  }
 `;
 
 export const ChatName = styled.p`
@@ -91,6 +100,10 @@ export const ChatForm = styled.form`
   justify-content: center;
   width: 50%;
   position: relative;
+
+  @media (max-width: 600px) {
+    width: 90%;
+  }
 `;
 
 export const ChatButton = styled.button`
@@ -124,4 +137,27 @@ export const ChatInput = styled.input`
     font-size: 18px;
     color: #919191;
   }
+`;
+
+export const MobileChatHeader = styled.div`
+  display: flex;
+  align-items: center;
+  position: fixed;
+  gap: 20px;
+  top: 10px;
+  left: 10px;
+`;
+
+export const MobileBackIcon = styled.button`
+  border: none;
+  background-color: rgba(0, 0, 0, 0);
+  cursor: pointer;
+
+  svg {
+    width: 50px;
+  }
+`;
+
+export const MobileChatName = styled.p`
+  color: white;
 `;

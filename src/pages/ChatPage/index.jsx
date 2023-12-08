@@ -7,10 +7,24 @@ import { Stomp } from "@stomp/stompjs";
 import SockJS from "sockjs-client";
 import { refresh } from "../../api/refresh";
 import { ChatIcon } from "../../assets/ChatIcon";
+import { BackIcon } from "../../assets/BackIcon";
 
 export default function ChatPage() {
   const [roomList, setRoomList] = useState([]);
   const navigate = useNavigate();
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 600);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 600);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     fetch("http://localhost:8080/room", {
@@ -31,33 +45,74 @@ export default function ChatPage() {
 
   return (
     <>
-      <Header />
-      <S.ChatContainer>
-        <S.SideBar>
-          <S.SideBarListBox>
-            {roomList.map((room) => (
-              <S.SideBarListItem key={room.id}>
-                <Link to={"/chat/" + room.id}>
-                  <S.UserInfoBox>
-                    <ProfileIcon />
-                    <S.UserName>
-                      {room.toUser.username} 🔗 {room.fromUser.username}
-                    </S.UserName>
-                  </S.UserInfoBox>
-                </Link>
-              </S.SideBarListItem>
-            ))}
-          </S.SideBarListBox>
-        </S.SideBar>
-        <Routes>
-          <Route path="/:id" element={<ChatInfoPage />} />
-        </Routes>
-      </S.ChatContainer>
+      {isMobile ? (
+        <>
+          <S.ChatContainer>
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <S.SideBar>
+                    <S.SideBarListBox>
+                      {roomList.map((room) => (
+                        <S.SideBarListItem key={room.id}>
+                          <Link to={"/chat/" + room.id}>
+                            <S.UserInfoBox>
+                              <ProfileIcon />
+                              <S.UserName>
+                                {room.toUser.username} 🔗{" "}
+                                {room.fromUser.username}
+                              </S.UserName>
+                            </S.UserInfoBox>
+                          </Link>
+                        </S.SideBarListItem>
+                      ))}
+                    </S.SideBarListBox>
+                  </S.SideBar>
+                }
+              />
+              <Route
+                path="/:id"
+                element={
+                  <>
+                    <ChatInfoPage isMobile={isMobile} roomList={roomList} />
+                  </>
+                }
+              />
+            </Routes>
+          </S.ChatContainer>
+        </>
+      ) : (
+        <>
+          <Header />
+          <S.ChatContainer>
+            <S.SideBar>
+              <S.SideBarListBox>
+                {roomList.map((room) => (
+                  <S.SideBarListItem key={room.id}>
+                    <Link to={"/chat/" + room.id}>
+                      <S.UserInfoBox>
+                        <ProfileIcon />
+                        <S.UserName>
+                          {room.toUser.username} 🔗 {room.fromUser.username}
+                        </S.UserName>
+                      </S.UserInfoBox>
+                    </Link>
+                  </S.SideBarListItem>
+                ))}
+              </S.SideBarListBox>
+            </S.SideBar>
+            <Routes>
+              <Route path="/:id" element={<ChatInfoPage />} />
+            </Routes>
+          </S.ChatContainer>
+        </>
+      )}
     </>
   );
 }
 
-function ChatInfoPage() {
+function ChatInfoPage({ isMobile, roomList }) {
   const { id } = useParams();
   const [chatList, setChatList] = useState([]);
   const [currentUserId, setCurrentUserId] = useState();
@@ -175,12 +230,29 @@ function ChatInfoPage() {
 
   return (
     <>
+      {isMobile && (
+        <S.MobileChatHeader>
+          <S.MobileBackIcon onClick={() => navigate("/chat")}>
+            <BackIcon />
+          </S.MobileBackIcon>
+          <S.MobileChatName>
+            {roomList[id - 1] && (
+              <>
+                {roomList[id - 1]?.toUser.username} 🔗{" "}
+                {roomList[id - 1]?.fromUser.username}
+              </>
+            )}
+          </S.MobileChatName>
+        </S.MobileChatHeader>
+      )}
       <S.ChatInfoContainer>
         <S.ChatBoxContainer ref={connectContainerRef}>
           {chatList.map((chat) => (
-            <S.ChatBox key={chat.id} isMe={currentUserId == chat.senderId}>
-              {chat.message}
-            </S.ChatBox>
+            <>
+              <S.ChatBox key={chat.id} isMe={currentUserId == chat.senderId}>
+                {chat.message}
+              </S.ChatBox>
+            </>
           ))}
         </S.ChatBoxContainer>
         <S.ChatForm
