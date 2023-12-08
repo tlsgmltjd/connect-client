@@ -12,14 +12,11 @@ export default function ChatPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(
-      "https://port-0-connect-server-f02w2almh8gdgs.sel5.cloudtype.app/room",
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("Access-Token")}`,
-        },
-      }
-    )
+    fetch("http://localhost:8080/room", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("Access-Token")}`,
+      },
+    })
       .then((response) => response.json())
       .then((data) => {
         setRoomList(data);
@@ -62,6 +59,7 @@ export default function ChatPage() {
 function ChatInfoPage() {
   const { id } = useParams();
   const [chatList, setChatList] = useState([]);
+  const [currentUserId, setCurrentUserId] = useState();
   const navigate = useNavigate();
 
   const client = useRef({});
@@ -107,15 +105,11 @@ function ChatInfoPage() {
   }, []);
 
   useEffect(() => {
-    fetch(
-      "https://port-0-connect-server-f02w2almh8gdgs.sel5.cloudtype.app/chat/" +
-        id,
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("Access-Token")}`,
-        },
-      }
-    )
+    fetch("http://localhost:8080/chat/" + id, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("Access-Token")}`,
+      },
+    })
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -126,12 +120,25 @@ function ChatInfoPage() {
           refresh(navigate, null);
         }
       });
+
+    fetch("http://localhost:8080/user/me", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("Access-Token")}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setCurrentUserId(data.id);
+      })
+      .catch((error) => {
+        if (error.response.status == 403) {
+          refresh(navigate, null);
+        }
+      });
   }, []);
 
   function connect() {
-    let socket = new SockJS(
-      "https://port-0-connect-server-f02w2almh8gdgs.sel5.cloudtype.app/ws-stomp"
-    );
+    let socket = new SockJS("http://localhost:8080/ws-stomp");
     client.current = Stomp.over(socket);
 
     client.current.connect({}, function (frame) {
@@ -147,6 +154,7 @@ function ChatInfoPage() {
             message: message.message,
             sendDate: message.sendDate,
             sender: message.sender,
+            senderId: message.senderId,
           },
         ]);
       });
@@ -169,9 +177,8 @@ function ChatInfoPage() {
       <S.ChatInfoContainer>
         <S.ChatBoxContainer ref={connectContainerRef}>
           {chatList.map((chat) => (
-            <S.ChatBox key={chat.id} isMe={chat.isMe}>
+            <S.ChatBox key={chat.id} isMe={currentUserId == chat.senderId}>
               {chat.message}
-              {chat.isMe == null && <S.ChatName>{chat.sender}</S.ChatName>}
             </S.ChatBox>
           ))}
         </S.ChatBoxContainer>
