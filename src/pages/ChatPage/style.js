@@ -62,6 +62,7 @@ export const ChatBoxContainer = styled.div`
 
   @media (max-width: 600px) {
     width: 90%;
+    height: 400px;
   }
 `;
 
@@ -87,6 +88,10 @@ export const ChatBox = styled.p`
   &:hover {
     scale: 1.05;
     transition: all 0.3s ease;
+  }
+
+  @media (max-width: 600px) {
+    font-size: 15px;
   }
 `;
 
