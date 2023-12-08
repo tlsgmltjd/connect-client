@@ -191,7 +191,7 @@ function ChatInfoPage() {
             e.target.msg.value = "";
           }}
         >
-          <S.ChatInput name="msg" id="msg" required />
+          <S.ChatInput name="msg" id="msg" required placeholder="Message..." />
           <S.ChatButton>
             <ChatIcon />
           </S.ChatButton>

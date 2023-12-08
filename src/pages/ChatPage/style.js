@@ -45,17 +45,21 @@ export const ChatInfoContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 50px;
+  gap: 30px;
 `;
 
 export const ChatBoxContainer = styled.div`
-  width: 70%;
+  width: 50%;
   height: 50vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   overflow: scroll;
   gap: 15px;
+
+  &::-webkit-scrollbar {
+    width: 0;
+  }
 `;
 
 export const ChatBox = styled.p`
@@ -63,7 +67,7 @@ export const ChatBox = styled.p`
   align-self: ${({ isMe }) =>
     isMe == true ? "flex-end" : isMe == false ? "flex-start" : "center"};
   color: white;
-  font-size: 30px;
+  font-size: 20px;
   border-radius: ${({ isMe }) =>
     isMe == true
       ? "30px 30px 2px 30px"
@@ -85,7 +89,7 @@ export const ChatName = styled.p`
 export const ChatForm = styled.form`
   display: flex;
   justify-content: center;
-  width: 70%;
+  width: 50%;
   position: relative;
 `;
 
@@ -94,22 +98,30 @@ export const ChatButton = styled.button`
   background-color: rgba(0, 0, 0, 0);
   cursor: pointer;
   position: absolute;
-  right: 10px;
-  bottom: 10px;
+  right: 15px;
+  bottom: 8px;
   svg {
-    width: 40px;
-    height: 40px;
+    width: 25px;
+    height: 25px;
   }
 `;
 
 export const ChatInput = styled.input`
   background-color: rgba(0, 0, 0, 0);
   border-radius: 50px;
-  border: 2px solid #fff;
+  border: 1px solid #fff;
   width: 100%;
-  height: 70px;
+  height: 50px;
   padding: 0 0 0 20px;
   color: white;
   font-size: 20px;
   outline: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &::placeholder {
+    font-size: 18px;
+    color: #919191;
+  }
 `;
