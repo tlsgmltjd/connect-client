@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const ChatContainer = styled.div`
   width: 100%;
-  height: 90vh;
+  height: 85vh;
   position: absolute;
   bottom: 0;
   display: flex;
@@ -62,7 +62,7 @@ export const ChatBoxContainer = styled.div`
 
   @media (max-width: 600px) {
     width: 90%;
-    height: 400px;
+    height: 420px;
   }
 `;
 
