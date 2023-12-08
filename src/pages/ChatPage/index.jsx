@@ -27,11 +27,14 @@ export default function ChatPage() {
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:8080/room", {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("Access-Token")}`,
-      },
-    })
+    fetch(
+      "https://port-0-connect-server-f02w2almh8gdgs.sel5.cloudtype.app/room",
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("Access-Token")}`,
+        },
+      }
+    )
       .then((response) => response.json())
       .then((data) => {
         setRoomList(data);
@@ -161,11 +164,15 @@ function ChatInfoPage({ isMobile, roomList }) {
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:8080/chat/" + id, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("Access-Token")}`,
-      },
-    })
+    fetch(
+      "https://port-0-connect-server-f02w2almh8gdgs.sel5.cloudtype.app/chat/" +
+        id,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("Access-Token")}`,
+        },
+      }
+    )
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -177,11 +184,14 @@ function ChatInfoPage({ isMobile, roomList }) {
         }
       });
 
-    fetch("http://localhost:8080/user/me", {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("Access-Token")}`,
-      },
-    })
+    fetch(
+      "https://port-0-connect-server-f02w2almh8gdgs.sel5.cloudtype.app/user/me",
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("Access-Token")}`,
+        },
+      }
+    )
       .then((response) => response.json())
       .then((data) => {
         setCurrentUserId(data.id);
@@ -194,7 +204,9 @@ function ChatInfoPage({ isMobile, roomList }) {
   }, []);
 
   function connect() {
-    let socket = new SockJS("http://localhost:8080/ws-stomp");
+    let socket = new SockJS(
+      "https://port-0-connect-server-f02w2almh8gdgs.sel5.cloudtype.app/ws-stomp"
+    );
     client.current = Stomp.over(socket);
 
     client.current.connect({}, function (frame) {
