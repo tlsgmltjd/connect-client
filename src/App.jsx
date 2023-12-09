@@ -21,7 +21,7 @@ function App() {
             element={<PrivateRoute element={<P.ChatPage />} />}
           />
           <Route
-            path="/profile"
+            path="/profile/*"
             element={<PrivateRoute element={<P.ProfilePage />} />}
           />
           <Route

@@ -7,7 +7,7 @@ import { InfoButton } from "../../assets/InfoButton";
 import { useState } from "react";
 import axios from "axios";
 import { refresh } from "../../api/refresh";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function SearchPage() {
   const [search, setSearch] = useState("");
@@ -62,7 +62,11 @@ export default function SearchPage() {
                   <ProfileIcon />
                   <S.UserName>{user.username}</S.UserName>
                 </S.UserInfoBox>
-                <InfoButton />
+                <Link to={`/profile/${user.id}`}>
+                  <S.UserInfoButton>
+                    <InfoButton />
+                  </S.UserInfoButton>
+                </Link>
               </S.UserBox>
             ))}
           </S.UserContainer>

@@ -72,3 +72,9 @@ export const UserName = styled.div`
   font-size: 22px;
   font-weight: 700;
 `;
+
+export const UserInfoButton = styled.button`
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+  cursor: pointer;
+`;
