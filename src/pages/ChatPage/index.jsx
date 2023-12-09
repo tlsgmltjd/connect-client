@@ -8,11 +8,48 @@ import SockJS from "sockjs-client";
 import { refresh } from "../../api/refresh";
 import { ChatIcon } from "../../assets/ChatIcon";
 import { BackIcon } from "../../assets/BackIcon";
+import { PlusIcon } from "../../assets/PlusIcon";
+import { SearchIcon } from "../../assets/SearchIcon";
+import { InfoButton } from "../../assets/InfoButton";
+import axios from "axios";
 
 export default function ChatPage() {
   const [roomList, setRoomList] = useState([]);
+  const [isModal, setIsModal] = useState(false);
+  const [search, setSearch] = useState("");
+  const [res, setRes] = useState([]);
   const navigate = useNavigate();
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 600);
+  let debounceTimer;
+
+  const handleSearchChange = (e) => {
+    const value = e.target.value;
+    setSearch(value);
+
+    // 기존 타이머가 있다면 클리어
+    if (debounceTimer) {
+      clearTimeout(debounceTimer);
+    }
+
+    // 500ms 후에 검색 요청
+    debounceTimer = setTimeout(() => {
+      axios
+        .get(
+          `https://port-0-connect-server-f02w2almh8gdgs.sel5.cloudtype.app/user?search=${value}`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("Access-Token")}`,
+            },
+          }
+        )
+        .then((response) => setRes(response.data))
+        .catch((error) => {
+          if (error.response.status == 403) {
+            refresh(navigate, null);
+          }
+        });
+    }, 500);
+  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -90,20 +127,80 @@ export default function ChatPage() {
           <Header />
           <S.ChatContainer>
             <S.SideBar>
-              <S.SideBarListBox>
-                {roomList.map((room) => (
-                  <S.SideBarListItem key={room.id}>
-                    <Link to={"/chat/" + room.id}>
-                      <S.UserInfoBox>
-                        <ProfileIcon />
-                        <S.UserName>
-                          {room.toUser.username} 🔗 {room.fromUser.username}
-                        </S.UserName>
-                      </S.UserInfoBox>
-                    </Link>
-                  </S.SideBarListItem>
-                ))}
-              </S.SideBarListBox>
+              <S.SideChatUserBox>
+                <S.AddUserButtonBox>
+                  <S.AddUserButton onClick={() => setIsModal((pre) => !pre)}>
+                    <PlusIcon />
+                  </S.AddUserButton>
+                </S.AddUserButtonBox>
+                {isModal == true && (
+                  <S.ModalBackground>
+                    <S.SearchContainer>
+                      <S.SearchBox>
+                        <S.SearchInput
+                          value={search}
+                          onChange={handleSearchChange}
+                        />
+                        <S.BackIcon onClick={() => setIsModal(false)}>
+                          <BackIcon />
+                        </S.BackIcon>
+                      </S.SearchBox>
+                      <S.UserContainer>
+                        {res.map((user) => (
+                          <S.UserBox key={user.id}>
+                            <S.UserInfoBox>
+                              <ProfileIcon />
+                              <S.UserName>{user.username}</S.UserName>
+                            </S.UserInfoBox>
+                            <S.UserInfoButton
+                              onClick={() => {
+                                setIsModal(false);
+
+                                axios
+                                  .post(
+                                    "http://localhost:8080/room",
+                                    {
+                                      fromUser: user.id,
+                                    },
+                                    {
+                                      headers: {
+                                        Authorization: `Bearer${localStorage.getItem(
+                                          "Access-Token"
+                                        )}`,
+                                      },
+                                    }
+                                  )
+                                  .then((data) => {
+                                    navigate(`/chat/${data.data}`);
+                                  })
+                                  .catch((error) => {
+                                    refresh(navigate, laodUserData);
+                                  });
+                              }}
+                            >
+                              <ChatIcon />
+                            </S.UserInfoButton>
+                          </S.UserBox>
+                        ))}
+                      </S.UserContainer>
+                    </S.SearchContainer>
+                  </S.ModalBackground>
+                )}
+                <S.SideBarListBox>
+                  {roomList.map((room) => (
+                    <S.SideBarListItem key={room.id}>
+                      <Link to={"/chat/" + room.id}>
+                        <S.UserInfoBox>
+                          <ProfileIcon />
+                          <S.UserName>
+                            {room.toUser.username} 🔗 {room.fromUser.username}
+                          </S.UserName>
+                        </S.UserInfoBox>
+                      </Link>
+                    </S.SideBarListItem>
+                  ))}
+                </S.SideBarListBox>
+              </S.SideChatUserBox>
             </S.SideBar>
             <Routes>
               <Route path="/:id" element={<ChatInfoPage />} />
@@ -163,7 +260,7 @@ function ChatInfoPage({ isMobile, roomList }) {
     return () => {
       disconnect();
     };
-  }, [connect]);
+  }, []);
 
   function laodChat() {
     fetch(

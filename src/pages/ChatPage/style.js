@@ -20,6 +20,25 @@ export const SideBar = styled.div`
   overflow-y: scroll;
 `;
 
+export const SideChatUserBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+export const AddUserButton = styled.button`
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+  cursor: pointer;
+`;
+
+export const AddUserButtonBox = styled.div`
+  width: 220px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 export const SideBarListBox = styled.ul``;
 
 export const SideBarListItem = styled.li`
@@ -165,4 +184,79 @@ export const MobileBackIcon = styled.button`
 
 export const MobileChatName = styled.p`
   color: white;
+`;
+
+///
+
+export const ModalBackground = styled.div`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  width: 100%;
+  height: 100vh;
+  z-index: 101;
+`;
+
+export const SearchContainer = styled.div`
+  width: 420px;
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
+
+export const SearchInput = styled.input`
+  width: 100%;
+  border-radius: 25px;
+  background: #17161f;
+  outline: none;
+  border: none;
+  color: white;
+  padding: 30px 30px 30px 20px;
+  font-size: 30px;
+  font-weight: 700;
+`;
+
+export const SearchBox = styled.div`
+  position: relative;
+  width: 100%;
+`;
+
+export const BackIcon = styled.p`
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translate(-20%, -50%);
+  cursor: pointer;
+`;
+
+export const UserContainer = styled.div`
+  background: #17161f;
+  height: 100%;
+  width: 100%;
+  border-radius: 25px;
+  padding: 20px;
+`;
+
+export const UserBox = styled.div`
+  width: 100%;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
+`;
+
+export const UserInfoButton = styled.button`
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+  cursor: pointer;
 `;

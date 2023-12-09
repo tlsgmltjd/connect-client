@@ -10,7 +10,7 @@ export const Container = styled.div`
   position: fixed;
   padding: 30px;
   top: 0;
-  z-index: 999;
+  z-index: 100;
   background-color: #1f1e2b;
 
   @media screen and (max-width: 890px) {
