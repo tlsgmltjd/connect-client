@@ -49,3 +49,23 @@ export const ProfileFollowItem = styled.div``;
 export const ProfileFollowBold = styled.span`
   font-weight: 700;
 `;
+
+export const FollowButton = styled.button`
+  border: none;
+  background-color: rgba(0, 0, 0, 0);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 30px;
+  background: ${(props) => (!props.isFollowed ? "#5966e9" : "#E95959")};
+  padding: 10px 25px;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 18px;
+  cursor: pointer;
+`;
+
+export const OtherProfileContainer = styled(Container)`
+  flex-direction: row;
+`;

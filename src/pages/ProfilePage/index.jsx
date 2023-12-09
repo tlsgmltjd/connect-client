@@ -5,6 +5,8 @@ import * as S from "./style";
 import axios from "axios";
 import { refresh } from "../../api/refresh";
 import { Route, Routes, useNavigate, useParams } from "react-router-dom";
+import { AddUserIcon } from "../../assets/AddUserIcon";
+import { DeleteUserIcon } from "../../assets/DeleteUserIcon";
 
 export default function ProfilePage() {
   const [userData, setUserData] = useState(null);
@@ -19,7 +21,6 @@ export default function ProfilePage() {
       })
       .then((data) => {
         setUserData(data.data);
-        console.log(data.data);
       })
       .catch((error) => {
         refresh(navigate, laodUserData);
@@ -93,7 +94,7 @@ function OtherUserInfo() {
   }, []);
 
   return (
-    <S.Container>
+    <S.OtherProfileContainer>
       <Header />
       {userData && (
         <S.ProfileContainer>
@@ -117,8 +118,77 @@ function OtherUserInfo() {
               </S.ProfileFollowBox>
             </>
           </S.ProfileBox>
+          {!userData.isFollowed ? (
+            <S.FollowButton
+              isFollowed={userData.isFollowed}
+              onClick={() => {
+                axios
+                  .post(
+                    "http://localhost:8080/follow",
+                    {
+                      userId: userData.id,
+                    },
+                    {
+                      headers: {
+                        Authorization: `Bearer${localStorage.getItem(
+                          "Access-Token"
+                        )}`,
+                      },
+                    }
+                  )
+                  .then((data) => {
+                    setUserData((pre) => {
+                      return {
+                        ...pre,
+                        followers: pre.followers + 1,
+                        isFollowed: true,
+                      };
+                    });
+                  })
+                  .catch((error) => {
+                    refresh(navigate, laodUserData);
+                  });
+              }}
+            >
+              <AddUserIcon />
+              FOLLOW
+            </S.FollowButton>
+          ) : (
+            <S.FollowButton
+              isFollowed={userData.isFollowed}
+              onClick={() => {
+                fetch("http://localhost:8080/follow", {
+                  method: "DELETE",
+                  headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${localStorage.getItem(
+                      "Access-Token"
+                    )}`,
+                  },
+                  body: JSON.stringify({
+                    userId: userData.id,
+                  }),
+                })
+                  .then((data) => {
+                    setUserData((pre) => {
+                      return {
+                        ...pre,
+                        followers: pre.followers - 1,
+                        isFollowed: false,
+                      };
+                    });
+                  })
+                  .catch((error) => {
+                    refresh(navigate, laodUserData);
+                  });
+              }}
+            >
+              <DeleteUserIcon />
+              UNFOLLOW
+            </S.FollowButton>
+          )}
         </S.ProfileContainer>
       )}
-    </S.Container>
+    </S.OtherProfileContainer>
   );
 }
