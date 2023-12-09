@@ -14,11 +14,14 @@ export default function ProfilePage() {
 
   const laodUserData = async () => {
     await axios
-      .get("http://localhost:8080/user/myself", {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("Access-Token")}`,
-        },
-      })
+      .get(
+        "https://port-0-connect-server-f02w2almh8gdgs.sel5.cloudtype.app/user/myself",
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("Access-Token")}`,
+          },
+        }
+      )
       .then((data) => {
         setUserData(data.data);
       })
@@ -77,11 +80,15 @@ function OtherUserInfo() {
 
   const laodUserData = async () => {
     await axios
-      .get("http://localhost:8080/user/" + userId, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("Access-Token")}`,
-        },
-      })
+      .get(
+        "https://port-0-connect-server-f02w2almh8gdgs.sel5.cloudtype.app/user/" +
+          userId,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("Access-Token")}`,
+          },
+        }
+      )
       .then((data) => {
         setUserData(data.data);
       })
@@ -124,7 +131,7 @@ function OtherUserInfo() {
               onClick={() => {
                 axios
                   .post(
-                    "http://localhost:8080/follow",
+                    "https://port-0-connect-server-f02w2almh8gdgs.sel5.cloudtype.app/follow",
                     {
                       userId: userData.id,
                     },
@@ -157,18 +164,21 @@ function OtherUserInfo() {
             <S.FollowButton
               isFollowed={userData.isFollowed}
               onClick={() => {
-                fetch("http://localhost:8080/follow", {
-                  method: "DELETE",
-                  headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${localStorage.getItem(
-                      "Access-Token"
-                    )}`,
-                  },
-                  body: JSON.stringify({
-                    userId: userData.id,
-                  }),
-                })
+                fetch(
+                  "https://port-0-connect-server-f02w2almh8gdgs.sel5.cloudtype.app/follow",
+                  {
+                    method: "DELETE",
+                    headers: {
+                      "Content-Type": "application/json",
+                      Authorization: `Bearer ${localStorage.getItem(
+                        "Access-Token"
+                      )}`,
+                    },
+                    body: JSON.stringify({
+                      userId: userData.id,
+                    }),
+                  }
+                )
                   .then((data) => {
                     setUserData((pre) => {
                       return {
