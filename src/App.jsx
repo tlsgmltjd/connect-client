@@ -17,16 +17,20 @@ function App() {
         <Routes>
           <Route path="/" element={<PrivateRoute element={<P.MainPage />} />} />
           <Route
+            path="/chat/*"
+            element={<PrivateRoute element={<P.ChatPage />} />}
+          />
+          <Route
+            path="/profile"
+            element={<PrivateRoute element={<P.ProfilePage />} />}
+          />
+          <Route
             path="/boards"
             element={<PrivateRoute element={<P.BoardPage />} />}
           />
           <Route
             path="/search"
             element={<PrivateRoute element={<P.SearchPage />} />}
-          />
-          <Route
-            path="/chat/*"
-            element={<PrivateRoute element={<P.ChatPage />} />}
           />
         </Routes>
       </>

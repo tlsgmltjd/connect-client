@@ -160,10 +160,12 @@ function ChatInfoPage({ isMobile, roomList }) {
   useEffect(() => {
     connect();
 
-    return () => disconnect();
-  }, []);
+    return () => {
+      disconnect();
+    };
+  }, [connect]);
 
-  useEffect(() => {
+  function laodChat() {
     fetch(
       "https://port-0-connect-server-f02w2almh8gdgs.sel5.cloudtype.app/chat/" +
         id,
@@ -183,6 +185,10 @@ function ChatInfoPage({ isMobile, roomList }) {
           refresh(navigate, null);
         }
       });
+  }
+
+  useEffect(() => {
+    laodChat();
 
     fetch(
       "https://port-0-connect-server-f02w2almh8gdgs.sel5.cloudtype.app/user/myself",
