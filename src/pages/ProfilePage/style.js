@@ -45,3 +45,7 @@ export const ProfileFollowBox = styled.div`
 `;
 
 export const ProfileFollowItem = styled.div``;
+
+export const ProfileFollowBold = styled.span`
+  font-weight: 700;
+`;
