@@ -15,7 +15,7 @@ export const SideBar = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  height: 600px;
+  height: 500px;
   width: 350px;
   overflow-y: scroll;
 `;
