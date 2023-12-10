@@ -88,11 +88,12 @@ export default function ChatPage() {
       {isMobile ? (
         <>
           <S.ChatContainer>
-            <Header />
             <Routes>
               <Route
                 path="/"
                 element={
+                  <>
+                  <Header />
                   <S.SideBar>
                     <S.AddUserButtonBox>
                       <S.AddUserButton
@@ -170,6 +171,7 @@ export default function ChatPage() {
                       ))}
                     </S.SideBarListBox>
                   </S.SideBar>
+                  </>
                 }
               />
               <Route
