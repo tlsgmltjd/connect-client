@@ -16,6 +16,10 @@ export const Container = styled.div`
   @media screen and (max-width: 890px) {
     gap: 2rem;
   }
+
+  @media screen and (max-width: 600px) {
+    gap: 1rem;
+  }
 `;
 
 export const Title = styled.h1`
@@ -26,6 +30,10 @@ export const Title = styled.h1`
 
   @media screen and (max-width: 890px) {
     font-size: 2.3rem;
+  }
+
+  @media screen and (max-width: 600px) {
+    font-size: 0;
   }
 `;
 

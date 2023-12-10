@@ -19,6 +19,10 @@ export const SearchContainer = styled.div`
   justify-content: center;
   align-items: center;
   gap: 40px;
+
+  @media screen and (max-width: 600px) {
+    width: 350px;
+  }
 `;
 
 export const SearchInput = styled.input`

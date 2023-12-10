@@ -88,11 +88,72 @@ export default function ChatPage() {
       {isMobile ? (
         <>
           <S.ChatContainer>
+            <Header />
             <Routes>
               <Route
                 path="/"
                 element={
                   <S.SideBar>
+                    <S.AddUserButtonBox>
+                      <S.AddUserButton
+                        onClick={() => setIsModal((pre) => !pre)}
+                      >
+                        <PlusIcon />
+                      </S.AddUserButton>
+                    </S.AddUserButtonBox>
+                    {isModal == true && (
+                      <S.ModalBackground>
+                        <S.SearchContainer>
+                          <S.SearchBox>
+                            <S.SearchInput
+                              value={search}
+                              onChange={handleSearchChange}
+                            />
+                            <S.BackIcon onClick={() => setIsModal(false)}>
+                              <BackIcon />
+                            </S.BackIcon>
+                          </S.SearchBox>
+                          <S.UserContainer>
+                            {res.map((user) => (
+                              <S.UserBox key={user.id}>
+                                <S.UserInfoBox>
+                                  <ProfileIcon />
+                                  <S.UserName>{user.username}</S.UserName>
+                                </S.UserInfoBox>
+                                <S.UserInfoButton
+                                  onClick={() => {
+                                    setIsModal(false);
+
+                                    axios
+                                      .post(
+                                        "https://port-0-connect-server-f02w2almh8gdgs.sel5.cloudtype.app/room",
+                                        {
+                                          fromUser: user.id,
+                                        },
+                                        {
+                                          headers: {
+                                            Authorization: `Bearer${localStorage.getItem(
+                                              "Access-Token"
+                                            )}`,
+                                          },
+                                        }
+                                      )
+                                      .then((data) => {
+                                        navigate(`/chat/${data.data}`);
+                                      })
+                                      .catch((error) => {
+                                        refresh(navigate, laodUserData);
+                                      });
+                                  }}
+                                >
+                                  <ChatIcon />
+                                </S.UserInfoButton>
+                              </S.UserBox>
+                            ))}
+                          </S.UserContainer>
+                        </S.SearchContainer>
+                      </S.ModalBackground>
+                    )}
                     <S.SideBarListBox>
                       {roomList.map((room) => (
                         <S.SideBarListItem key={room.id}>
@@ -158,7 +219,7 @@ export default function ChatPage() {
 
                                 axios
                                   .post(
-                                    "http://localhost:8080/room",
+                                    "https://port-0-connect-server-f02w2almh8gdgs.sel5.cloudtype.app/room",
                                     {
                                       fromUser: user.id,
                                     },

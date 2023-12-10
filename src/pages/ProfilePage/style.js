@@ -64,6 +64,11 @@ export const FollowButton = styled.button`
   font-weight: 700;
   font-size: 18px;
   cursor: pointer;
+
+  @media screen and (max-width: 600px) {
+    font-size: 13px;
+    padding: 8px 18px;
+  }
 `;
 
 export const OtherProfileContainer = styled(Container)`
